@@ -17,12 +17,11 @@ struct GameView : View {
 
     func restoreGame()
     {
+        loadGame()
+
         if moveNumber == 0 {
             randomize()
             saveGame()
-        }
-        else {
-            loadGame()
         }
     }
     
@@ -67,12 +66,16 @@ struct GameView : View {
         }
     }
     
-    func saveGame() {
-        
+    func saveGame()
+    {
+        UserDefaults.standard.set(moveNumber, forKey: "moveNumber")
+        UserDefaults.standard.set(gameGrid, forKey: "gameGrid")
     }
     
-    func loadGame() {
-        
+    func loadGame()
+    {
+        moveNumber = max(1, UserDefaults.standard.integer(forKey: "moveNumber"))
+        gameGrid = UserDefaults.standard.array(forKey: "gameGrid") as? [Bool] ?? [Bool](repeating: false, count: GameConfig.gridSize)
     }
     
     func isWinner() -> Bool {
@@ -92,7 +95,8 @@ struct GameView : View {
                                     self.flip(x, y)
                                     self.printGrid()
                                     self.moveNumber += 1
-                                    print("isWinner=\(self.isWinner())")
+                                    self.saveGame()
+                                    print("moveNumber=\(self.moveNumber), isWinner=\(self.isWinner())")
                             }) {
                                 ButtonView(isOn: self.gameGrid[x + (y * GameConfig.numberOfColumns)])
                             }
