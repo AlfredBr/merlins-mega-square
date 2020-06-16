@@ -103,16 +103,14 @@ struct GameView : View {
             ZStack {
                 Color.systemBackground.edgesIgnoringSafeArea(.all)
                 VStack {
-                    //Text("Merlin's MEGA Square")
-                    Image("LaunchImage")
-                        .resizable()
-                        .frame(width:(400*0.7), height: (135*0.7))
-                        .padding(.bottom, Screen.height/5)
+                    Spacer()
+                    Image("MerlinsMegaSquare (Phone)")
+                    Spacer()
+                Text("Privacy Policy")
                 }
-                Spacer()
             }
             .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     self.showSplash = false
                     self.restoreGame()
                 }
