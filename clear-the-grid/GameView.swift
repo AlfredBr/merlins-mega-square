@@ -74,7 +74,7 @@ struct GameView : View {
     
     func loadGame()
     {
-        moveNumber = max(1, UserDefaults.standard.integer(forKey: "moveNumber"))
+        moveNumber = UserDefaults.standard.integer(forKey: "moveNumber")
         gameGrid = UserDefaults.standard.array(forKey: "gameGrid") as? [Bool] ?? [Bool](repeating: false, count: GameConfig.gridSize)
     }
     
@@ -111,7 +111,13 @@ struct GameView : View {
                     Spacer()
                     Image("MerlinsMegaSquare (Phone)")
                     Spacer()
-                Text("Privacy Policy")
+                    Button("Privacy Policy")
+                    {
+                        if let url = URL(string: "https://raw.githubusercontent.com/AlfredBr/merlins-mega-square/master/PRIVACY.md")
+                        {
+                            UIApplication.shared.open(url)
+                        }
+                    }
                 }
             }
             .onAppear {
