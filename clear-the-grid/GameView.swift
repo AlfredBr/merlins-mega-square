@@ -91,6 +91,7 @@ struct GameView : View {
                                 action: {
                                     self.flip(x, y)
                                     self.printGrid()
+                                    self.moveNumber += 1
                                     print("isWinner=\(self.isWinner())")
                             }) {
                                 ButtonView(isOn: self.gameGrid[x + (y * GameConfig.numberOfColumns)])
