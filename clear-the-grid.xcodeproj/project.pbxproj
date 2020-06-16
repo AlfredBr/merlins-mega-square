@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		731A2C3624986978004D0DB4 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 731A2C3524986978004D0DB4 /* images */; };
 		73A8EC8A24970BB9005571DD /* GameConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A8EC8924970BB9005571DD /* GameConfig.swift */; };
 		73A8EC8C24970C01005571DD /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A8EC8B24970C01005571DD /* ButtonView.swift */; };
 		73B450952495D60C00FDE3AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B450942495D60C00FDE3AF /* AppDelegate.swift */; };
@@ -21,9 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		731A2C3524986978004D0DB4 /* images */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = images; sourceTree = SOURCE_ROOT; };
 		73A8EC8924970BB9005571DD /* GameConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConfig.swift; sourceTree = "<group>"; };
 		73A8EC8B24970C01005571DD /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
-		73B450912495D60C00FDE3AF /* clear-the-grid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "clear-the-grid.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		73B450912495D60C00FDE3AF /* MEGA Square.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MEGA Square.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73B450942495D60C00FDE3AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73B450962495D60C00FDE3AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		73B450982495D60C00FDE3AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,7 +60,7 @@
 		73B450922495D60C00FDE3AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				73B450912495D60C00FDE3AF /* clear-the-grid.app */,
+				73B450912495D60C00FDE3AF /* MEGA Square.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -75,6 +77,7 @@
 				73B450AA2495D81A00FDE3AF /* GameView.swift */,
 				73B450982495D60C00FDE3AF /* ContentView.swift */,
 				73B4509A2495D61300FDE3AF /* Assets.xcassets */,
+				731A2C3524986978004D0DB4 /* images */,
 				73B4509F2495D61300FDE3AF /* LaunchScreen.storyboard */,
 				73B450A22495D61300FDE3AF /* Info.plist */,
 				73B4509C2495D61300FDE3AF /* Preview Content */,
@@ -107,7 +110,7 @@
 			);
 			name = "clear-the-grid";
 			productName = "clear-the-grid";
-			productReference = 73B450912495D60C00FDE3AF /* clear-the-grid.app */;
+			productReference = 73B450912495D60C00FDE3AF /* MEGA Square.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -148,6 +151,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				731A2C3624986978004D0DB4 /* images in Resources */,
 				73B450A12495D61300FDE3AF /* LaunchScreen.storyboard in Resources */,
 				73B4509E2495D61300FDE3AF /* Preview Assets.xcassets in Resources */,
 				73B4509B2495D61300FDE3AF /* Assets.xcassets in Resources */,
@@ -313,10 +317,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "AlfredBr.clear-the-grid";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "AlfredBr.merlins-mega-square";
+				PRODUCT_NAME = "MEGA Square";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -333,10 +337,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "AlfredBr.clear-the-grid";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "AlfredBr.merlins-mega-square";
+				PRODUCT_NAME = "MEGA Square";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

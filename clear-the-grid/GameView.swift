@@ -103,13 +103,13 @@ struct GameView : View {
             ZStack {
                 Color.systemBackground.edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("Merlin's MEGA Square")
-                    //Image("MerlinsMagicSquare")
-                    //    .resizable()
-                    //    .frame(width:(400*0.7), height: (135*0.7))
-                    //    .padding(.bottom, Screen.height/5)
+                    //Text("Merlin's MEGA Square")
+                    Image("MerlinsMegaSquare")
+                        .resizable()
+                        .frame(width:(400*0.7), height: (135*0.7))
+                        .padding(.bottom, Screen.height/5)
                 }
-                //Spacer()
+                Spacer()
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
