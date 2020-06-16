@@ -10,8 +10,10 @@ import SwiftUI
 
 struct GameView : View {
     @State private var gameGrid = [Bool](repeating: false, count: GameConfig.gridSize)
-    @State private var showSplash = true;
     @State private var moveNumber = 0;
+
+    @State private var showSplash = true;
+    @State private var isGameOver = false;
     
     let gameConfig = GameConfig()
 
@@ -95,8 +97,9 @@ struct GameView : View {
                                     self.flip(x, y)
                                     self.printGrid()
                                     self.moveNumber += 1
+                                    self.isGameOver = self.isWinner()
                                     self.saveGame()
-                                    print("moveNumber=\(self.moveNumber), isWinner=\(self.isWinner())")
+                                    //print("moveNumber=\(self.moveNumber), isWinner=\(self.isWinner())")
                             }) {
                                 ButtonView(isOn: self.gameGrid[x + (y * GameConfig.numberOfColumns)])
                             }
