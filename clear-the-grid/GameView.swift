@@ -84,53 +84,61 @@ struct GameView : View {
         return gameGrid.allSatisfy({$0 == gameGrid.first})
     }
     
+    var splashScreen: some View {
+        ZStack {
+            Color.systemBackground.edgesIgnoringSafeArea(.all)
+            VStack {
+                Spacer()
+                Image("MerlinsMegaSquare (Phone)")
+                Spacer()
+                Button("Privacy Policy")
+                {
+                    if let url = URL(string: "https://raw.githubusercontent.com/AlfredBr/merlins-mega-square/master/PRIVACY.md")
+                    {
+                        UIApplication.shared.open(url)
+                    }
+                }
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.showSplash = false
+                self.restoreGame()
+            }
+        }
+        .opacity(self.showSplash ? 1.0 : 0.0)
+        .animation(.default)
+    }
+    
+    var playField : some View {
+        VStack (spacing: 0.0) {
+            HeaderView(text: "Merlin's MEGA Square")
+            ForEach(0 ..< GameConfig.numberOfRows, id:\.self) {
+                y in
+                HStack (spacing: 0.0) {
+                    ForEach(0 ..< GameConfig.numberOfColumns, id:\.self) {
+                        x in
+                        Button(
+                            action: {
+                                self.flip(x, y)
+                                self.printGrid()
+                                self.moveNumber += 1
+                                self.isGameOver = self.isWinner()
+                                self.saveGame()
+                                //print("moveNumber=\(self.moveNumber), isWinner=\(self.isWinner())")
+                        }) {
+                            ButtonView(isOn: self.gameGrid[x + (y * GameConfig.numberOfColumns)])
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     var body : some View {
         ZStack {
-            VStack (spacing: 0.0) {
-                ForEach(0 ..< GameConfig.numberOfRows, id:\.self) {
-                    y in
-                    HStack (spacing: 0.0) {
-                        ForEach(0 ..< GameConfig.numberOfColumns, id:\.self) {
-                            x in
-                            Button(
-                                action: {
-                                    self.flip(x, y)
-                                    self.printGrid()
-                                    self.moveNumber += 1
-                                    self.isGameOver = self.isWinner()
-                                    self.saveGame()
-                                    //print("moveNumber=\(self.moveNumber), isWinner=\(self.isWinner())")
-                            }) {
-                                ButtonView(isOn: self.gameGrid[x + (y * GameConfig.numberOfColumns)])
-                            }
-                        }
-                    }
-                }
-            }
-            // splash screen
-            ZStack {
-                Color.systemBackground.edgesIgnoringSafeArea(.all)
-                VStack {
-                    Spacer()
-                    Image("MerlinsMegaSquare (Phone)")
-                    Spacer()
-                    Button("Privacy Policy")
-                    {
-                        if let url = URL(string: "https://raw.githubusercontent.com/AlfredBr/merlins-mega-square/master/PRIVACY.md")
-                        {
-                            UIApplication.shared.open(url)
-                        }
-                    }
-                }
-            }
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.showSplash = false
-                    self.restoreGame()
-                }
-            }
-            .opacity(self.showSplash ? 1.0 : 0.0)
-            .animation(.default)
+            playField
+            splashScreen
         }
     }
 }

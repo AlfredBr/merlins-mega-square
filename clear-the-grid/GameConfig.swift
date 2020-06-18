@@ -10,7 +10,7 @@ import SwiftUI
 
 struct GameConfig {
     static let numberOfColumns : Int = 7
-    static let numberOfRows : Int = (Int(Screen.height) / (Int(Screen.width) / GameConfig.numberOfColumns)) - 1
+    static let numberOfRows : Int = (Int(Screen.height) / (Int(Screen.width) / GameConfig.numberOfColumns)) - 2
     static let buttonSize : CGFloat = (CGFloat(Screen.width) / CGFloat(GameConfig.numberOfColumns)) - 2.0
     static let gridSize : Int = GameConfig.numberOfColumns * GameConfig.numberOfRows
     

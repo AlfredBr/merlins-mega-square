@@ -21,6 +21,7 @@
 		73B450AB2495D81A00FDE3AF /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B450AA2495D81A00FDE3AF /* GameView.swift */; };
 		73B450AF2495DAA200FDE3AF /* Color.extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B450AE2495DAA200FDE3AF /* Color.extension.swift */; };
 		73B450B12495DABD00FDE3AF /* Screen.extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B450B02495DABD00FDE3AF /* Screen.extension.swift */; };
+		73E5524E249ACE5400EE04C0 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E5524D249ACE5400EE04C0 /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		73B450AA2495D81A00FDE3AF /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		73B450AE2495DAA200FDE3AF /* Color.extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.extension.swift; sourceTree = "<group>"; };
 		73B450B02495DABD00FDE3AF /* Screen.extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.extension.swift; sourceTree = "<group>"; };
+		73E5524D249ACE5400EE04C0 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				73B450B02495DABD00FDE3AF /* Screen.extension.swift */,
 				73B450AE2495DAA200FDE3AF /* Color.extension.swift */,
 				73B450942495D60C00FDE3AF /* AppDelegate.swift */,
+				73E5524D249ACE5400EE04C0 /* HeaderView.swift */,
 				73B450962495D60C00FDE3AF /* SceneDelegate.swift */,
 				73A8EC8924970BB9005571DD /* GameConfig.swift */,
 				73A8EC8B24970C01005571DD /* ButtonView.swift */,
@@ -177,6 +180,7 @@
 				73B450952495D60C00FDE3AF /* AppDelegate.swift in Sources */,
 				73A8EC8C24970C01005571DD /* ButtonView.swift in Sources */,
 				73A8EC8A24970BB9005571DD /* GameConfig.swift in Sources */,
+				73E5524E249ACE5400EE04C0 /* HeaderView.swift in Sources */,
 				73B450972495D60C00FDE3AF /* SceneDelegate.swift in Sources */,
 				73B450AB2495D81A00FDE3AF /* GameView.swift in Sources */,
 				73B450AF2495DAA200FDE3AF /* Color.extension.swift in Sources */,
