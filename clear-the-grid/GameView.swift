@@ -80,6 +80,10 @@ struct GameView : View {
         gameGrid = UserDefaults.standard.array(forKey: "gameGrid") as? [Bool] ?? [Bool](repeating: false, count: GameConfig.gridSize)
     }
     
+    func isFilled(_ x: Int, _ y : Int) -> Bool {
+        return self.gameGrid[x + (y * GameConfig.numberOfColumns)]
+    }
+    
     func isWinner() -> Bool {
         return gameGrid.allSatisfy({$0 == gameGrid.first})
     }
@@ -112,7 +116,7 @@ struct GameView : View {
     
     var playField : some View {
         VStack (spacing: 0.0) {
-            HeaderView(text: "Merlin's MEGA Square")
+            HeaderView()
             ForEach(0 ..< GameConfig.numberOfRows, id:\.self) {
                 y in
                 HStack (spacing: 0.0) {
@@ -127,7 +131,7 @@ struct GameView : View {
                                 self.saveGame()
                                 //print("moveNumber=\(self.moveNumber), isWinner=\(self.isWinner())")
                         }) {
-                            ButtonView(isOn: self.gameGrid[x + (y * GameConfig.numberOfColumns)])
+                            ButtonView(isFilled: self.isFilled(x, y))
                         }
                     }
                 }
@@ -138,7 +142,7 @@ struct GameView : View {
     var body : some View {
         ZStack {
             playField
-            splashScreen
+            splashScreen            
         }
     }
 }

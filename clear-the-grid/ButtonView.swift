@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ButtonView : View {
-    var isOn : Bool
+    var isFilled : Bool
    
     @Environment(\.colorScheme) var colorScheme    
     
@@ -27,14 +27,16 @@ struct ButtonView : View {
     
     var body : some View {
         return Rectangle()
-            .fill(isOn ? gameConfig.buttonColor : bgColor)
+            .fill(isFilled ? gameConfig.buttonColor : bgColor)
             .frame(width:GameConfig.buttonSize, height:GameConfig.buttonSize)
-            .overlay(Rectangle().stroke(gameConfig.strokeColor, lineWidth: 2).opacity(0.5))
+            .overlay(Rectangle()
+                .stroke(gameConfig.strokeColor, lineWidth: 2)
+                .opacity(0.5))
     }
 }
 
 struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonView(isOn: true)
+        ButtonView(isFilled: true)
     }
 }

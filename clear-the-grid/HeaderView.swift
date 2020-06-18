@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct HeaderView: View {
-    var text : String
     var body: some View {
         Image("MerlinsMegaSquare (Header)")
             .resizable(capInsets: EdgeInsets(top: 0.0,
@@ -25,6 +24,6 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderView(text: "Hello, World!")
+        HeaderView()
     }
 }
