@@ -21,6 +21,7 @@ extension Color
     static var navy      : Color { return Color(.sRGB, red: 0.0, green: 0.0, blue: 0.5) }
     static var forest    : Color { return Color(.sRGB, red: 34/256, green: 139/256, blue: 39/256) }
     static var brown     : Color { return Color(.sRGB, red: 205/256, green: 133/256, blue: 63/256) }
+    static var wheat     : Color { return Color(.sRGB, red: 0.9764705896, green: 0.850980401, blue: 0.5490196347) }
     static var rose      : Color { return Color(.sRGB, red: 1, green: 0.5010663968, blue: 0.9396337981) }
     static var melon     : Color { return Color(.sRGB, red: 0.7373879231, green: 1, blue: 0.6828219775) }
     static var cabernet  : Color { return Color(.sRGB, red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719 ) }

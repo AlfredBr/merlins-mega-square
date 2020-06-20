@@ -15,18 +15,18 @@ struct GameConfig {
     static let gridSize : Int = GameConfig.numberOfColumns * GameConfig.numberOfRows
     static let gridHeight : CGFloat = CGFloat(GameConfig.numberOfRows) * buttonSize + CGFloat(GameConfig.numberOfRows)
     private static let buttonColors = [ Color.orange, Color.silver, Color.rose, Color.purple,
-                                        Color.green, Color.blue, Color.red, Color.yellow,
-                                        Color.cyan, Color.cabernet, Color.olive, Color.melon,
-                                        Color.teal, Color.gold, Color.navy, Color.forest, Color.brown]
+                                        Color.green,  Color.red, Color.yellow,Color.blue,
+                                        Color.cyan, Color.cabernet, Color.olive, Color.melon,Color.gold,
+                                        Color.teal,  Color.navy, Color.forest, Color.wheat, Color.brown]
 
     static func getColorIndex() -> Int {
         return  Calendar.current.component(.second, from: Date()) % buttonColors.count
     }
     
     static func getButtonColor(_ colorIndex: Int) -> Color {
-        return GameConfig.buttonColors[colorIndex]
+        return GameConfig.buttonColors[colorIndex%buttonColors.count]
     }
-    
+        
     static func getStrokeColor(_ colorIndex: Int) -> Color {
         let buttonColor = getButtonColor(colorIndex)
         switch buttonColor {

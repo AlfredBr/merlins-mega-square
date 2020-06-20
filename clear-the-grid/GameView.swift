@@ -18,6 +18,8 @@ struct GameView : View {
     @State private var colorIndex = 0
     @State private var numberOfRows = GameConfig.numberOfRows
 
+    @Environment(\.colorScheme) var colorScheme
+    
     let rowOptions : [String] = ["1", "3", "5", "7", "9", "11", "13"]
     let gameConfig = GameConfig()
 
@@ -132,43 +134,57 @@ struct GameView : View {
     var settingsView : some View {
         ZStack {
             Color.systemBackground.edgesIgnoringSafeArea(.all)
-            VStack (spacing: 0.0) {
+            VStack (spacing: 40.0) {
                 HeaderView(showSettingsView: $showSettingsView)
                 Spacer()
-                Text("Choose number of rows")
-                    .font(Font.title)
-                    .padding(.vertical, 5).padding(.horizontal, 8)
-                    .background(Color.gray)
-                    .foregroundColor(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                Picker(selection: $difficulty, label: Text("")) {
-                    ForEach(0 ..< rowOptions.count) { i in
-                        Text(self.rowOptions[i]).font(Font.title)
-                    }
-                }
-                .labelsHidden()
                 Button(action: {
                     self.randomize(self.difficulty)
                     self.showSettingsView = false
                 }){
-                    Text("Start New Game")
-                        .font(.title)
-                        .padding(.vertical, 5).padding(.horizontal, 8)
-                        .background(Color.blue)
-                        .foregroundColor(Color.white)
+                    Image("Shuffle")
+                        .resizable(capInsets: EdgeInsets(top: 0.0,
+                                                         leading: 0.0,
+                                                         bottom: 0.0,
+                                                         trailing: 0.0),
+                                   resizingMode: .stretch)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: Screen.width/1.5)
+                        .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.1))
                         .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 }
-                Spacer()
+
                 Button(action: {
+                    self.difficulty = 0
+                    self.randomize(self.difficulty)
                     self.showSettingsView = false
                 }){
-                    Text("Resume Game")
-                        .font(.title)
-                        .padding(.vertical, 5).padding(.horizontal, 8)
-                        .background(Color.blue)
-                        .foregroundColor(Color.white)
+                    Image("StartOver")
+                        .resizable(capInsets: EdgeInsets(top: 0.0,
+                                                         leading: 0.0,
+                                                         bottom: 0.0,
+                                                         trailing: 0.0),
+                                   resizingMode: .stretch)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: Screen.width/1.5)
+                        .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.1))
                         .clipShape(RoundedRectangle(cornerRadius: 8.0))
                 }
+
+                Button(action: {
+                    self.randomize(self.difficulty)
+                    self.showSettingsView = false
+                }){
+                    Image("GoBack")
+                        .resizable(capInsets: EdgeInsets(top: 10.0,
+                                                         leading: 0.0,
+                                                         bottom: 0.0,
+                                                         trailing: 0.0),
+                                   resizingMode: .stretch)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: Screen.width/1.5)
+                        .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.1))
+                        .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                    }
                 Spacer()
             }
         }
