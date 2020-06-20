@@ -134,7 +134,7 @@ struct GameView : View {
     var settingsView : some View {
         ZStack {
             Color.systemBackground.edgesIgnoringSafeArea(.all)
-            VStack (spacing: 40.0) {
+            VStack (spacing: 30.0) {
                 HeaderView(showSettingsView: $showSettingsView)
                 Spacer()
                 Button(action: {
@@ -174,7 +174,7 @@ struct GameView : View {
                     self.showSettingsView = false
                 }){
                     Image("GoBack")
-                        .resizable(capInsets: EdgeInsets(top: 10.0,
+                        .resizable(capInsets: EdgeInsets(top: 0.0,
                                                          leading: 0.0,
                                                          bottom: 0.0,
                                                          trailing: 0.0),
@@ -183,7 +183,7 @@ struct GameView : View {
                         .frame(width: Screen.width/1.5)
                         .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.1))
                         .clipShape(RoundedRectangle(cornerRadius: 8.0))
-                    }
+                }
                 Spacer()
             }
         }
@@ -199,6 +199,23 @@ struct GameView : View {
                 Spacer()
                 Text("Winner").font(.title)
                 Spacer()
+                Button(action: {
+                    self.difficulty += 1
+                    self.randomize(self.difficulty)
+                    self.showSettingsView = false
+                    self.isGameOver = false
+                }){
+                    Image("Continue")
+                        .resizable(capInsets: EdgeInsets(top: 0.0,
+                                                         leading: 0.0,
+                                                         bottom: 0.0,
+                                                         trailing: 0.0),
+                                   resizingMode: .stretch)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: Screen.width/2.0)
+                        .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.1))
+                        .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                }
             }
         }
         .opacity(self.isGameOver ? 1.0 : 0.0)
