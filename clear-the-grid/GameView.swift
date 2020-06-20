@@ -171,7 +171,6 @@ struct GameView : View {
                 }
 
                 Button(action: {
-                    self.randomize(self.difficulty)
                     self.showSettingsView = false
                 }){
                     Image("GoBack")
