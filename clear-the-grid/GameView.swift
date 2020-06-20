@@ -35,7 +35,7 @@ struct GameView : View {
         print("difficulty=\(difficulty)")
         print("new number of rows=\(rowOptions[difficulty])")
 
-        numberOfRows = Int(rowOptions[difficulty]) ?? 13
+        numberOfRows = Int(rowOptions[difficulty%rowOptions.count]) ?? Int(rowOptions.last ?? <#default value#>) ?? 13
 
         for i in 0 ..< GameConfig.gridSize {
             gameGrid[i] = false;
