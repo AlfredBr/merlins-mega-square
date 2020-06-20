@@ -11,33 +11,39 @@ import SwiftUI
 struct GameView : View {
     @State private var gameGrid = [Bool](repeating: false, count: GameConfig.gridSize)
     @State private var moveNumber = 0
-    @State private var difficultySelection :Int? = 0
+    @State private var difficulty :Int = 5
     @State private var showSplash = true
     @State private var isGameOver = false
     @State private var showSettingsView = false
     @State private var colorIndex = 0
+    @State private var numberOfRows = GameConfig.numberOfRows
 
-    let rowOptions : [String] = ["3", "5", "7", "9", "11", "13"]
+    let rowOptions : [String] = ["1", "3", "5", "7", "9", "11", "13"]
     let gameConfig = GameConfig()
 
     func restoreGame() {
         loadGame()
-
+        print("moveNumber=\(moveNumber)")
         if moveNumber == 0 {
-            randomize()
-            saveGame()
+            randomize(self.difficulty)
         }
     }
     
-    func randomize() {
+    func randomize(_ difficulty : Int) {
+        print("difficulty=\(difficulty)")
+        print("new number of rows=\(rowOptions[difficulty])")
+
+        numberOfRows = Int(rowOptions[difficulty]) ?? 13
+
         for i in 0 ..< GameConfig.gridSize {
             gameGrid[i] = false;
         }
         for _ in 0 ..< 100 {
             let x = Int.random(in: 0 ..< GameConfig.numberOfColumns)
-            let y = Int.random(in: 0 ..< GameConfig.numberOfRows)
+            let y = Int.random(in: 0 ..< numberOfRows)
             flip(x, y)
         }
+        
         moveNumber = 0
         colorIndex = GameConfig.getColorIndex()
         saveGame()
@@ -55,7 +61,7 @@ struct GameView : View {
         if x < 0 ||
            y < 0 ||
            x >= GameConfig.numberOfColumns ||
-           y >= GameConfig.numberOfRows {
+           y >= numberOfRows {
             return
         }
         
@@ -64,7 +70,7 @@ struct GameView : View {
     }
     
     func printGrid() {
-        for y in 0 ..< GameConfig.numberOfRows {
+        for y in 0 ..< numberOfRows {
             var row = ""
             for x in 0 ..< GameConfig.numberOfColumns {
                 let p = x + (y * GameConfig.numberOfColumns)
@@ -77,11 +83,13 @@ struct GameView : View {
     func saveGame() {
         UserDefaults.standard.set(moveNumber, forKey: "moveNumber")
         UserDefaults.standard.set(gameGrid, forKey: "gameGrid")
+        UserDefaults.standard.set(difficulty, forKey: "difficulty")
     }
     
     func loadGame() {
         moveNumber = UserDefaults.standard.integer(forKey: "moveNumber")
         gameGrid = UserDefaults.standard.array(forKey: "gameGrid") as? [Bool] ?? [Bool](repeating: false, count: GameConfig.gridSize)
+        difficulty = UserDefaults.standard.integer(forKey: "difficulty")
     }
     
     func isFilled(_ x: Int, _ y : Int) -> Bool {
@@ -89,7 +97,11 @@ struct GameView : View {
     }
     
     func isWinner() -> Bool {
-        return gameGrid.allSatisfy({$0 == gameGrid.first})
+        let section = gameGrid.prefix(GameConfig.numberOfColumns * numberOfRows)
+        print(GameConfig.numberOfColumns)
+        print(numberOfRows)
+        print(section.count)
+        return section.allSatisfy({$0 == gameGrid.first})
     }
     
     var splashScreenView: some View {
@@ -123,9 +135,20 @@ struct GameView : View {
             VStack (spacing: 0.0) {
                 HeaderView(showSettingsView: $showSettingsView)
                 Spacer()
-                SimplePickerView(prompt:"Choose number of rows", options: rowOptions, selectedIndex: $difficultySelection)
+                Text("Choose number of rows")
+                    .font(Font.title)
+                    .padding(.vertical, 5).padding(.horizontal, 8)
+                    .background(Color.gray)
+                    .foregroundColor(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                Picker(selection: $difficulty, label: Text("")) {
+                    ForEach(0 ..< rowOptions.count) { i in
+                        Text(self.rowOptions[i]).font(Font.title)
+                    }
+                }
+                .labelsHidden()
                 Button(action: {
-                    self.randomize()
+                    self.randomize(self.difficulty)
                     self.showSettingsView = false
                 }){
                     Text("Start New Game")
@@ -153,29 +176,47 @@ struct GameView : View {
         .animation(.default)
     }
     
+    var winnerView : some View {
+        ZStack {
+            Color.systemBackground.edgesIgnoringSafeArea(.all)
+            VStack (spacing: 0.0) {
+                HeaderView(showSettingsView: $showSettingsView)
+                Spacer()
+                Text("Winner").font(.title)
+                Spacer()
+            }
+        }
+        .opacity(self.isGameOver ? 1.0 : 0.0)
+        .animation(.default)
+    }
+    
+    private func createButton(_ x: Int, _ y: Int, _ colorIndex: Int) -> Button<ButtonView> {
+        return Button(
+            action: {
+                self.flip(x, y)
+                //self.printGrid()
+                self.moveNumber += 1
+                self.isGameOver = self.isWinner()
+                if (self.isGameOver) { self.moveNumber = 0 }
+                self.saveGame()
+                print("moveNumber=\(self.moveNumber), isGameOver=\(self.isGameOver)")
+        }) {
+            ButtonView(isFilled: self.isFilled(x, y), colorIndex: colorIndex)
+        }
+    }
+    
     var playFieldView : some View {
         ZStack {
             Color.systemBackground.edgesIgnoringSafeArea(.all)
             VStack (spacing: 0.0) {
                 HeaderView(showSettingsView: $showSettingsView)
                 Spacer()
-                ForEach(0 ..< GameConfig.numberOfRows, id:\.self) {
+                ForEach(0 ..< numberOfRows, id:\.self) {
                     y in
                     HStack (spacing: 0.0) {
                         ForEach(0 ..< GameConfig.numberOfColumns, id:\.self) {
                             x in
-                            Button(
-                                action: {
-                                    self.flip(x, y)
-                                    self.printGrid()
-                                    self.moveNumber += 1
-                                    self.isGameOver = self.isWinner()
-                                    if (self.isGameOver) { self.moveNumber = 0 }
-                                    self.saveGame()
-                                    //print("moveNumber=\(self.moveNumber), isWinner=\(self.isWinner())")
-                            }) {
-                                ButtonView(isFilled: self.isFilled(x, y), colorIndex: self.colorIndex)
-                            }
+                            self.createButton(x, y, self.colorIndex)
                         }
                     }
                 }
@@ -189,6 +230,7 @@ struct GameView : View {
             playFieldView
             splashScreenView
             settingsView
+            winnerView
         }
     }
 }

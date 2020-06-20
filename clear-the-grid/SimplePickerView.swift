@@ -11,22 +11,23 @@ import SwiftUI
 struct SimplePickerView: View {
     var prompt:String
     var options:[String]
-    @Binding var selectedIndex:Int?
-    
+    @State var selectedIndex = 0
+
     var body: some View {
         VStack (spacing: 10.0) {
-            Text(self.prompt)
+            Text(prompt)
                 .font(Font.title)
                 .padding(.vertical, 5).padding(.horizontal, 8)
                 .background(Color.gray)
                 .foregroundColor(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 8.0))
-            Picker(selection: self.$selectedIndex, label: Text(self.prompt)) {
+            Picker(selection: $selectedIndex, label: Text(prompt)) {
                 ForEach(0 ..< options.count) { i in
-                    Text(self.options[i]).font(Font.title)
+                    Text(options[i]).font(Font.title)
                 }
             }
             .labelsHidden()
+           
         }
     }
 }
