@@ -35,7 +35,7 @@ struct GameView : View {
         print("difficulty=\(difficulty)")
         print("new number of rows=\(rowOptions[difficulty])")
 
-        numberOfRows = Int(rowOptions[difficulty%rowOptions.count]) ?? Int(rowOptions.last ?? <#default value#>) ?? 13
+        numberOfRows = Int(rowOptions[difficulty%rowOptions.count]) ?? 13
 
         for i in 0 ..< GameConfig.gridSize {
             gameGrid[i] = false;
@@ -141,16 +141,7 @@ struct GameView : View {
                     self.randomize(self.difficulty)
                     self.showSettingsView = false
                 }){
-                    Image("Shuffle")
-                        .resizable(capInsets: EdgeInsets(top: 0.0,
-                                                         leading: 0.0,
-                                                         bottom: 0.0,
-                                                         trailing: 0.0),
-                                   resizingMode: .stretch)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: Screen.width/1.5)
-                        .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                    buttonImage("Shuffle")
                 }
 
                 Button(action: {
@@ -158,31 +149,13 @@ struct GameView : View {
                     self.randomize(self.difficulty)
                     self.showSettingsView = false
                 }){
-                    Image("StartOver")
-                        .resizable(capInsets: EdgeInsets(top: 0.0,
-                                                         leading: 0.0,
-                                                         bottom: 0.0,
-                                                         trailing: 0.0),
-                                   resizingMode: .stretch)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: Screen.width/1.5)
-                        .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                    buttonImage("StartOver")
                 }
 
                 Button(action: {
                     self.showSettingsView = false
                 }){
-                    Image("GoBack")
-                        .resizable(capInsets: EdgeInsets(top: 0.0,
-                                                         leading: 0.0,
-                                                         bottom: 0.0,
-                                                         trailing: 0.0),
-                                   resizingMode: .stretch)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: Screen.width/1.5)
-                        .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                   buttonImage("GoBack")
                 }
                 Spacer()
             }
@@ -191,13 +164,30 @@ struct GameView : View {
         .animation(.default)
     }
     
+    var winnerImage : some View {
+        return Image("Winner\(Int.random(in: 1 ... 3))").clipShape(RoundedRectangle(cornerRadius: 8.0))
+    }
+    
+    fileprivate func buttonImage(_ imageName: String) -> some View {
+        return Image(imageName)
+            .resizable(capInsets: EdgeInsets(top: 0.0,
+                                             leading: 0.0,
+                                             bottom: 0.0,
+                                             trailing: 0.0),
+                       resizingMode: .stretch)
+            .aspectRatio(contentMode: .fit)
+            .frame(width: Screen.width/2.0)
+            .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
+    }
+    
     var winnerView : some View {
         ZStack {
             Color.systemBackground.edgesIgnoringSafeArea(.all)
             VStack (spacing: 0.0) {
                 HeaderView(showSettingsView: $showSettingsView)
                 Spacer()
-                Text("Winner").font(.title)
+                winnerImage
                 Spacer()
                 Button(action: {
                     self.difficulty += 1
@@ -205,21 +195,12 @@ struct GameView : View {
                     self.showSettingsView = false
                     self.isGameOver = false
                 }){
-                    Image("Continue")
-                        .resizable(capInsets: EdgeInsets(top: 0.0,
-                                                         leading: 0.0,
-                                                         bottom: 0.0,
-                                                         trailing: 0.0),
-                                   resizingMode: .stretch)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: Screen.width/2.0)
-                        .background((colorScheme == .dark ? Color.white : Color.black).opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 8.0))
+                    buttonImage("Continue")
                 }
             }
         }
         .opacity(self.isGameOver ? 1.0 : 0.0)
-        .animation(.default)
+        //.animation(.default)
     }
     
     private func createButton(_ x: Int, _ y: Int, _ colorIndex: Int) -> Button<ButtonView> {
