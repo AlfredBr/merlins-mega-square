@@ -75,15 +75,6 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		73ABB89524A1A84500E2C5E8 /* Markup */ = {
-			isa = PBXGroup;
-			children = (
-				731A2C37249875BA004D0DB4 /* README.md */,
-				731A2C392498763D004D0DB4 /* PRIVACY.md */,
-			);
-			path = Markup;
-			sourceTree = "<group>";
-		};
 		73ABB89624A1A85F00E2C5E8 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,9 +112,10 @@
 		73B450932495D60C00FDE3AF /* clear-the-grid */ = {
 			isa = PBXGroup;
 			children = (
+				731A2C37249875BA004D0DB4 /* README.md */,
+				731A2C392498763D004D0DB4 /* PRIVACY.md */,
 				73ABB89724A1AA1700E2C5E8 /* Classes */,
 				73ABB89624A1A85F00E2C5E8 /* Delegates */,
-				73ABB89524A1A84500E2C5E8 /* Markup */,
 				73ABB89424A1A82800E2C5E8 /* Views */,
 				73ABB89324A1A80900E2C5E8 /* Extensions */,
 				73B4509A2495D61300FDE3AF /* Assets.xcassets */,
