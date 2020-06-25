@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct GameConfig {
-    static let numberOfColumns : Int = 7
-    static let numberOfRows : Int = 13 // (Int(Screen.height) / (Int(Screen.width) / GameConfig.numberOfColumns)) - 2
-    static let buttonSize : CGFloat = (CGFloat(Screen.width) / CGFloat(GameConfig.numberOfColumns)) - 2.0
-    static let gridSize : Int = GameConfig.numberOfColumns * GameConfig.numberOfRows
-    static let gridHeight : CGFloat = CGFloat(GameConfig.numberOfRows) * buttonSize + CGFloat(GameConfig.numberOfRows)
+    static let maxNumberOfColumns : Int = 7
+    static let maxNumberOfRows : Int = 13 // (Int(Screen.height) / (Int(Screen.width) / GameConfig.numberOfColumns)) - 2
+    static let buttonSize : CGFloat = (CGFloat(Screen.width) / CGFloat(GameConfig.maxNumberOfColumns)) - 2.0
+    static let gridSize : Int = GameConfig.maxNumberOfColumns * GameConfig.maxNumberOfRows
+    static let gridHeight : CGFloat = CGFloat(GameConfig.maxNumberOfRows) * buttonSize + CGFloat(GameConfig.maxNumberOfRows)
     private static let buttonColors = [ Color.orange, Color.silver, Color.rose, Color.purple,
-                                        Color.green,  Color.red, Color.yellow,Color.blue,
+                                        Color.green,  Color.red, Color.yellow, Color.brown, Color.blue,
                                         Color.cyan, Color.cabernet, Color.olive, Color.melon,Color.gold,
-                                        Color.teal,  Color.navy, Color.forest, Color.wheat, Color.brown]
+                                        Color.teal,  Color.navy, Color.forest, Color.wheat]
 
     static func getColorIndex() -> Int {
         return  Calendar.current.component(.second, from: Date()) % buttonColors.count

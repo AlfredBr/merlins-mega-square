@@ -16,7 +16,7 @@ struct GameView : View {
     @State private var isGameOver = false
     @State private var showSettingsView = false
     @State private var colorIndex = 0
-    @State private var numberOfRows = GameConfig.numberOfRows
+    @State private var numberOfRows = GameConfig.maxNumberOfRows
 
     @Environment(\.colorScheme) var colorScheme
     
@@ -26,8 +26,11 @@ struct GameView : View {
     func restoreGame() {
         loadGame()
         print("moveNumber=\(moveNumber)")
+        print("difficulty=\(difficulty)")
+        numberOfRows = Int(rowOptions[min(difficulty, rowOptions.count-1)]) ?? 1
+        print("numberOfRows=\(numberOfRows)")
         if moveNumber == 0 {
-            randomize(self.difficulty)
+            randomize(difficulty)
         }
     }
     
@@ -35,13 +38,13 @@ struct GameView : View {
         print("difficulty=\(difficulty)")
         print("new number of rows=\(rowOptions[difficulty])")
 
-        numberOfRows = Int(rowOptions[difficulty%rowOptions.count]) ?? 13
+        numberOfRows = Int(rowOptions[min(difficulty, rowOptions.count-1)]) ?? 1
 
         for i in 0 ..< GameConfig.gridSize {
             gameGrid[i] = false;
         }
         for _ in 0 ..< 100 {
-            let x = Int.random(in: 0 ..< GameConfig.numberOfColumns)
+            let x = Int.random(in: 0 ..< GameConfig.maxNumberOfColumns)
             let y = Int.random(in: 0 ..< numberOfRows)
             flip(x, y)
         }
@@ -62,20 +65,20 @@ struct GameView : View {
     func flipN(_ x: Int, _ y: Int) {
         if x < 0 ||
            y < 0 ||
-           x >= GameConfig.numberOfColumns ||
+           x >= GameConfig.maxNumberOfColumns ||
            y >= numberOfRows {
             return
         }
         
-        let p = x + (y * GameConfig.numberOfColumns)
+        let p = x + (y * GameConfig.maxNumberOfColumns)
         gameGrid[p].toggle()
     }
     
     func printGrid() {
         for y in 0 ..< numberOfRows {
             var row = ""
-            for x in 0 ..< GameConfig.numberOfColumns {
-                let p = x + (y * GameConfig.numberOfColumns)
+            for x in 0 ..< GameConfig.maxNumberOfColumns {
+                let p = x + (y * GameConfig.maxNumberOfColumns)
                 row += gameGrid[p] ? "* " : "_ "
             }
             print(row)
@@ -95,12 +98,12 @@ struct GameView : View {
     }
     
     func isFilled(_ x: Int, _ y : Int) -> Bool {
-        return self.gameGrid[x + (y * GameConfig.numberOfColumns)]
+        return self.gameGrid[x + (y * GameConfig.maxNumberOfColumns)]
     }
     
     func isWinner() -> Bool {
-        let section = gameGrid.prefix(GameConfig.numberOfColumns * numberOfRows)
-        print(GameConfig.numberOfColumns)
+        let section = gameGrid.prefix(GameConfig.maxNumberOfColumns * numberOfRows)
+        print(GameConfig.maxNumberOfColumns)
         print(numberOfRows)
         print(section.count)
         return section.allSatisfy({$0 == gameGrid.first})
@@ -220,11 +223,19 @@ struct GameView : View {
             Color.systemBackground.edgesIgnoringSafeArea(.all)
             VStack (spacing: 0.0) {
                 HeaderView(showSettingsView: $showSettingsView)
+                Text("Click the boxes below with the goal of changing them ALL to the SAME color.")
+                    .font(.title)
+                    .foregroundColor(.gray)
+                    .padding()
+                    .opacity(self.difficulty <= 2 ? 1.0 : 0.0)
+                Spacer()
+            }
+            VStack (spacing: 0.0) {
                 Spacer()
                 ForEach(0 ..< numberOfRows, id:\.self) {
                     y in
                     HStack (spacing: 0.0) {
-                        ForEach(0 ..< GameConfig.numberOfColumns, id:\.self) {
+                        ForEach(0 ..< GameConfig.maxNumberOfColumns, id:\.self) {
                             x in
                             self.createButton(x, y, self.colorIndex)
                         }
