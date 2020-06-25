@@ -223,7 +223,7 @@ struct GameView : View {
             Color.systemBackground.edgesIgnoringSafeArea(.all)
             VStack (spacing: 0.0) {
                 HeaderView(showSettingsView: $showSettingsView)
-                Text("Solve this puzzle by clicking the boxes below with the goal of changing them ALL to the SAME color.")
+                Text("Solve this puzzle by clicking the boxes below.  The goal is to change them ALL to the SAME color.")
                     .font(.title)
                     .foregroundColor(.gray)
                     .padding()
