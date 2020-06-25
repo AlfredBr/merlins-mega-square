@@ -35,6 +35,7 @@ struct ButtonView : View {
             .overlay(Rectangle()
                 .stroke(GameConfig.getStrokeColor(colorIndex), lineWidth: 2)
                 .opacity(0.5))
+            .blur(radius:1)
     }
 }
 

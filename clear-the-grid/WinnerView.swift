@@ -50,16 +50,15 @@ struct WinnerView: View {
                 .frame(width: Screen.width/2, height: Screen.height/6)
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 16.0, style: .circular))
+                .blur(radius:1)
                 .shadow(color: Color(red: 0, green: 0, blue: 0),
                         radius: 10, x: 5, y: 5)
         }
     }
 }
 
-
 struct WinnerView_Previews: PreviewProvider {
     static var previews: some View {
         WinnerView(imageName: "Winner1")
     }
 }
-
