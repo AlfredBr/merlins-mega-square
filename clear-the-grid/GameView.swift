@@ -164,10 +164,6 @@ struct GameView : View {
         .animation(.default)
     }
     
-    var winnerImage : some View {
-        return Image("Winner\(Int.random(in: 1 ... 3))").clipShape(RoundedRectangle(cornerRadius: 8.0))
-    }
-    
     fileprivate func buttonImage(_ imageName: String) -> some View {
         return Image(imageName)
             .resizable(capInsets: EdgeInsets(top: 0.0,
@@ -187,7 +183,8 @@ struct GameView : View {
             VStack (spacing: 0.0) {
                 HeaderView(showSettingsView: $showSettingsView)
                 Spacer()
-                winnerImage
+                //winnerImage
+                WinnerView(imageName: "Winner\(Int.random(in: 1 ... 3))")
                 Spacer()
                 Button(action: {
                     self.difficulty += 1

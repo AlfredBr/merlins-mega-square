@@ -34,4 +34,6 @@ extension Color
     static let collection = [ Color.orange, Color.silver, Color.pink, Color.purple, Color.green, Color.blue, Color.gray,
                               Color.red, Color.yellow, Color.cyan, Color.magenta, Color.olive, Color.lime, Color.maroon,
                               Color.rose, Color.melon, Color.teal, Color.gold]
+    
+    static var random    : Color { return collection[Int.random(in: 0 ..< collection.count)] }
 }
